@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Stage 1: raw loop (asks for a question)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/stages/01_raw_loop/agent.py",
+      "args": ["${input:question}"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    }
+  ],
+  "inputs": [
+    {
+      "id": "question",
+      "type": "promptString",
+      "description": "Ask the database a question",
+      "default": "Which film category brings in the most rental revenue?"
+    }
+  ]
+}

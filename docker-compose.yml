@@ -1,0 +1,20 @@
+# One command gives you the database the agent and the benchmark use:
+#   docker compose up -d
+# Postgres 16 with Pagila v3.1.0 and the read-only agent_ro login, reachable
+# only from this machine on port 5433 (so it won't clash with a local Postgres).
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_PASSWORD: postgres      # local-only container; change if you expose it
+      POSTGRES_DB: pagila
+      AGENT_PASSWORD: agent_ro_local   # must match DATABASE_URL in .env
+      SETUP_DIR: /setup
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - ./setup:/setup:ro
+      - ./setup/init.sh:/docker-entrypoint-initdb.d/init.sh:ro
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
